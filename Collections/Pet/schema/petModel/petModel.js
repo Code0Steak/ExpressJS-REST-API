@@ -1,7 +1,4 @@
-const {Sequelize}  = require("sequelize")
-
-const CommonModel = require("../../../../Commons/commonModel")
-
+const {DataTypes}  = require("sequelize")
 
 
 const PetModel = {
@@ -23,13 +20,24 @@ const PetModel = {
     }
 }
 
-//Made the Pet(Model class) to inherit from CommonModel
-//The Pet class is initialized with the PetModel attributes
-//The class inherits all the CRUD methods from the CommonModel
-class Pet extends CommonModel {
-    constructor(sequelize) {
-        super(sequelize, "Pet", PetModel)
-    }
-}
+module.exports = {
+    initialize: seq => {
+        this.model = seq.define("pet",PetModel)
+    },
 
-module.exports = Pet
+    createPet: pet => this.model.create(pet),
+
+    getPetByID: query => this.model.findOne({where: query}),
+
+    getPets: query => this.model.findAll({where: query}),
+
+    updatePet: (query, updatedContent) => this.model.update(updatedContent, {
+        where: query
+    }),
+
+    deletePet: query => this.model.destroy({
+        where: query
+    }),
+    
+
+};
