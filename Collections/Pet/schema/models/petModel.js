@@ -27,7 +27,7 @@ module.exports = {
 
     createPet: pet => this.model.create(pet),
 
-    getPetByID: query => this.model.findOne({where: query}),
+    getPet: query => this.model.findOne({where: query}),
 
     getPets: query => this.model.findAll({where: query}),
 
@@ -40,4 +40,4 @@ module.exports = {
     }),
     
 
-};
+}
